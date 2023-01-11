@@ -22,7 +22,7 @@ spec:
       parameters:
         - name: relay.serverAddress
           value: >-
-            ac943c6ae659b461c9611b2a1043be08-296767474.eu-west-3.elb.amazonaws.com:9900
+            localhost:9900
         - name: relay.authority
           value: gloo-mesh-mgmt-server.gloo-mesh
         - name: cluster

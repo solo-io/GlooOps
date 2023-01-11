@@ -1,0 +1,13 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gloo-agents
+spec:
+  destination:
+    name: 'in-cluster'
+    namespace: ''
+  source:
+    path: argo/gloo/agent-config/helm
+    repoURL: 'https://github.com/solo-io/GlooOps'
+    targetRevision: HEAD
+  project: gloo-mesh
