@@ -1,0 +1,23 @@
+---
+# Source: gloo-mesh-enterprise/templates/licenses.yaml
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  name: license-keys
+  namespace: gloo-mesh
+data:
+  gloo-mesh-license-key: ""
+  gloo-network-license-key: ""
+  gloo-gateway-license-key: ""
+  gloo-trial-license-key: ""
+---
+# Source: gloo-mesh-enterprise/templates/licenses.yaml
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  name: gloo-mesh-enterprise-license
+  namespace: gloo-mesh
+data:
+  key: "<license>"

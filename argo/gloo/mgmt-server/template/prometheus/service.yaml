@@ -1,0 +1,25 @@
+---
+# Source: gloo-mesh-enterprise/charts/prometheus/templates/server/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    component: "server"
+    app: prometheus
+    release: gloo-mesh-enterprise
+    chart: prometheus-15.12.2
+    heritage: Helm
+  name: prometheus-server
+  namespace: gloo-mesh
+spec:
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 9090
+  selector:
+    component: "server"
+    app: prometheus
+    release: gloo-mesh-enterprise
+  sessionAffinity: None
+  type: "ClusterIP"

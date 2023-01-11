@@ -1,0 +1,18 @@
+---
+# Source: gloo-mesh-enterprise/templates/ui-auth.yaml
+# Secret values for auth config
+apiVersion: v1
+kind: Secret
+metadata:
+  name: dashboard
+  namespace: gloo-mesh
+type: Opaque
+---
+# Source: gloo-mesh-enterprise/templates/ui-auth.yaml
+# Dashboard Settings CRD
+
+kind: Dashboard
+apiVersion: admin.gloo.solo.io/v2
+metadata:
+  name: settings
+  namespace: gloo-mesh

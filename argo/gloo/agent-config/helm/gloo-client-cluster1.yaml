@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gloo-cluster1
+  namespace: argocd
+spec:
+  ignoreDifferences:
+  - group: apiextensions
+    kind: CustomResourceDefinition
+    name: istiooperators.install.istio.io
+    jsonPointers:
+    - /metadata/labels
+  destination:
+    name: 'cluster1'
+    namespace: gloo-mesh
+  source:
+    path: ''
+    repoURL: 'https://storage.googleapis.com/gloo-mesh-enterprise/gloo-mesh-agent'
+    targetRevision: 2.1.2
+    chart: gloo-mesh-agent
+    helm:
+      parameters:
+        - name: relay.serverAddress
+          value: >-
+            ac943c6ae659b461c9611b2a1043be08-296767474.eu-west-3.elb.amazonaws.com:9900
+        - name: relay.authority
+          value: gloo-mesh-mgmt-server.gloo-mesh
+        - name: cluster
+          value: cluster1
+  project: gloo-mesh
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - RespectIgnoreDifferences=true
+    automated:
+      prune: false
+      selfHeal: false

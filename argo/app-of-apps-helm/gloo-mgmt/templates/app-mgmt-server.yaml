@@ -1,0 +1,60 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mgmt-server
+  namespace: {{ .Values.spec.destination.namespace }}
+spec:
+  ignoreDifferences:
+  - kind: Secret
+    name: relay-identity-token-secret
+    namespace: gloo-mesh
+    jsonPointers:
+    - /data/token
+  - kind: Secret
+    name: relay-root-tls-secret
+    namespace: gloo-mesh
+    jsonPointers:
+    - /data/ca.crt
+    - /data/tls.key
+  - kind: Secret
+    name: relay-server-tls-secret
+    namespace: gloo-mesh
+    jsonPointers:
+    - /data/ca.crt
+    - /data/tls.key
+    - /data/tls.crt
+  - kind: Secret
+    name: relay-tls-signing-secret
+    namespace: gloo-mesh
+    jsonPointers:
+    - /data/ca.crt
+    - /data/tls.key
+    - /data/tls.crt
+  destination:
+    name: {{ .Values.spec.destination.server }}
+    namespace: gloo-mesh
+  source:
+    path: ''
+    repoURL: 'https://storage.googleapis.com/gloo-mesh-enterprise/gloo-mesh-enterprise'
+    targetRevision: 2.1.2
+    chart: gloo-mesh-enterprise
+    helm:
+      parameters:
+        - name: glooMeshMgmtServer.ports.healthcheck
+          value: '8091'
+        - name: glooMeshUi.serviceType
+          value: LoadBalancer
+        - name: mgmtClusterName
+          value: mgmt
+        - name: global.cluster
+          value: mgmt
+        - name: licenseKey
+          value: >-
+            eyJhZGRPbnMiOltdLCJleHAiOjE2NzM1MTc0NjksImlhdCI6MTY2NzkwMTQ2OSwiayI6InhRZ2daUSIsImx0IjoidHJpYWwiLCJwcm9kdWN0IjoiZ2xvby1tZXNoLWdhdGV3YXkifQ.14cPaNauzQJA9D5puVD2EWtxoAz-q2_6z6TeiNODpCQ
+  project: gloo-mesh
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: false
+      selfHeal: false

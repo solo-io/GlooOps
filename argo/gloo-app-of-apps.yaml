@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gloo-mgmt
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    server: in-cluster
+  project: gloo-mesh
+  source:
+    path: argo/helm/gloo-mgmt
+    repoURL: https://github.com/lamadome/GlooOps.git
+  syncPolicy:
+    automated: {}

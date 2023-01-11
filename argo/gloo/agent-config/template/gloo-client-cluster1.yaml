@@ -1,0 +1,47 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cluster1
+  namespace: argocd
+spec:
+  destination:
+    name: ''
+    namespace: gloo-mesh
+    server: 'https://FE07185C025F4CF211A5F8CB1A3D56FF.gr7.eu-west-3.eks.amazonaws.com'
+  source:
+    path: argo/gloo/agent-config/argo/template/cluster1
+    repoURL: 'https://github.com/lamadome/barclays-aws-environment'
+    targetRevision: HEAD
+    directory:
+      recurse: false
+  project: gloo-mesh
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
+  ignoreDifferences:
+    - kind: Secret
+      name: relay-identity-token-secret
+      namespace: gloo-mesh
+      jsonPointers:
+        - /data/token
+    - kind: Secret
+      name: relay-root-tls-secret
+      namespace: gloo-mesh
+      jsonPointers:
+        - /data/ca.crt
+        - /data/tls.key
+    - kind: Secret
+      name: relay-server-tls-secret
+      namespace: gloo-mesh
+      jsonPointers:
+        - /data/ca.crt
+        - /data/tls.key
+        - /data/tls.crt
+    - kind: Secret
+      name: relay-tls-signing-secret
+      namespace: gloo-mesh
+      jsonPointers:
+        - /data/ca.crt
+        - /data/tls.key
+        - /data/tls.crt

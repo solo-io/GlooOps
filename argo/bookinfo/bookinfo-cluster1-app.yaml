@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bookinfo-cluster1
+  namespace: argocd
+spec:
+  destination:
+    name: cluster1
+    namespace: ''
+    server: ''
+  source:
+    path: argo/bookinfo/cluster1
+    repoURL: 'https://github.com/lamadome/barclays-aws-environment'
+    targetRevision: HEAD
+  project: bookinfo
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
+    syncOptions: []
