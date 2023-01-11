@@ -1,9 +1,0 @@
-Add Vault/letsencrypt + ingress
-Use Argo to
-Add routes to expose gloo management service
-Add waits
-
-argo on docker - vcluster
-
-containerapps in azure
-
