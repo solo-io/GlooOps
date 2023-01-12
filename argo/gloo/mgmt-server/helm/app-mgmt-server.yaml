@@ -30,7 +30,7 @@ spec:
     - /data/tls.key
     - /data/tls.crt
   destination:
-    name: 'in-cluster'
+    name: 'mgmt'
     namespace: gloo-mesh
   source:
     path: ''

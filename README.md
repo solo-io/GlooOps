@@ -50,6 +50,7 @@ Now we need to register the workload clusters to argo. For this exercise we will
 
 
 ```bash
+argocd cluster add ${MGMT} -y --in-cluster --name ${MGMT}
 argocd cluster add ${CLUSTER1} -y --name ${CLUSTER1}
 argocd cluster add ${CLUSTER2} -y --name ${CLUSTER2}
 ```
@@ -97,26 +98,25 @@ export HOST_GLOO_MESH=$(echo ${ENDPOINT_GLOO_MESH} | cut -d: -f1)
 echo "---"
 echo $ENDPOINT_GLOO_MESH
 ```
-8. Register clusters to gloo - You need to run this on the management cluster. This can eventually be added to the github repo and be managed by Argo as well
-```bash
-k apply -f "argo/gloo/agent-config/gloo-cluster1.yaml" --context ${MGMT} 
-k apply -f "argo/gloo/agent-config/gloo-cluster2.yaml" --context ${MGMT} 
-```
-9.
-Change the address of the mesh server in gloo client cluster 1 and 2
+8. Register clusters to gloo - You need to run this on the management cluster.  We do this by deploying an argo app that will manage the gloo client clusters
+   
+First Change the address of the mesh server in gloo client cluster 1 and 2
 ```bash  
 sed -i '' "s/localhost:9900/${ENDPOINT_GLOO_MESH}/g" argo/gloo/agent-config/helm/gloo-client-cluster1.yaml
 sed -i '' "s/localhost:9900/${ENDPOINT_GLOO_MESH}/g" argo/gloo/agent-config/helm/gloo-client-cluster2.yaml
+git commit --all -m "change gloo mesh server endpoint"
+git push origin main
 ```
+   
 ```bash
-k apply --context ${MGMT} -f "argo/gloo/agent-config/helm/gloo-client-cluster1.yaml"
-k apply --context ${MGMT} -f "argo/gloo/agent-config/helm/gloo-client-cluster2.yaml"
+k apply --context ${MGMT} -f "argo/gloo/agent-config/agentconfig-app.yaml"
 ```
-10. 
+
+9.  
 ```bash
 kubectl --context ${MGMT} apply -f "argo/gloo/gateways/cross-cluster-gateway.yaml"
 ```
-11.
+10.
 ```bash
 kubectl --context ${CLUSTER1} create ns istio-gateways
 kubectl --context ${CLUSTER1} apply -f "argo/gloo/gateways/cluster1"
