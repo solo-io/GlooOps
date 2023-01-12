@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: bookinfo
+  namespace: argocd
+spec:
+  generators:
+  - git:
+      repoURL: https://github.com/solo-io/GlooOps
+      revision: HEAD
+      directories:
+      - path: argo/bookinfo/*
+  template:
+    metadata:
+      name: 'bookinfo-{{path.basename}}'
+    spec:
+      project: gloo-mesh
+      source:
+        repoURL: https://github.com/solo-io/GlooOps
+        targetRevision: HEAD
+        path: '{{path}}'
+      destination:
+        name: '{{path.basename}}'

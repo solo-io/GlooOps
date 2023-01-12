@@ -1,14 +1,18 @@
-# 1. gloo-ops
-Manage Gloo Platform the GitOps way
+
 
 - [1. gloo-ops](#1-gloo-ops)
   - [1.1. Prerequisites](#11-prerequisites)
   - [1.2. Gloo on EKS](#12-gloo-on-eks)
   - [1.3. Install Gloo](#13-install-gloo)
-    - [Install Argo and register the k8s clusters into argo](#install-argo-and-register-the-k8s-clusters-into-argo)
-    - [Clone/branch/fork the GlooOps github repo](#clonebranchfork-the-glooops-github-repo)
-    - [Install gloo mesh mgmt plane and register workload clusters](#install-gloo-mesh-mgmt-plane-and-register-workload-clusters)
-    - [Deploy the gateways and install istio](#deploy-the-gateways-and-install-istio)
+    - [1.3.1. Install Argo and register the k8s clusters into argo](#131-install-argo-and-register-the-k8s-clusters-into-argo)
+    - [1.3.2. Clone/branch/fork the GlooOps github repo](#132-clonebranchfork-the-glooops-github-repo)
+    - [1.3.3. Install gloo mesh mgmt plane and register workload clusters](#133-install-gloo-mesh-mgmt-plane-and-register-workload-clusters)
+    - [1.3.4. Deploy the gateways and install istio](#134-deploy-the-gateways-and-install-istio)
+    - [1.3.5. Deploy the bookinfo app](#135-deploy-the-bookinfo-app)
+
+# 1. gloo-ops
+Manage Gloo Platform the GitOps way
+
 
 
 ## 1.1. Prerequisites
@@ -41,7 +45,7 @@ export license="your license key"
 
 ## 1.3. Install Gloo
 
-### Install Argo and register the k8s clusters into argo
+### 1.3.1. Install Argo and register the k8s clusters into argo
 
 ```bash
 make install-argo-full
@@ -71,7 +75,7 @@ note: if you get an error that the cluster is already registered, you can delete
 It is important to note that the kubeapi server that is used in the kubeconfig is also accessible by the argocd server. If you are using a private cluster, you will need to make sure that the argocd server can access the kubeapi server.
 
 
-### Clone/branch/fork the GlooOps github repo
+### 1.3.2. Clone/branch/fork the GlooOps github repo
 This will install argo onto your cluster.
 Create a branch or fork the following github repo:
 
@@ -82,7 +86,7 @@ We will use this as a base in the following steps.
 Now we need to register the workload clusters to argo. For this exercise we will use the argocd command, however in production you may want to create the account and kubeconfig file manually. 
 
 
-### Install gloo mesh mgmt plane and register workload clusters
+### 1.3.3. Install gloo mesh mgmt plane and register workload clusters
 
 First create the gloo-mesh project on the management cluster.
 
@@ -157,7 +161,7 @@ Now create the argo app:
 k apply --context ${MGMT} -f "argo/gloo/agent-config/agentconfig-app.yaml"
 ```
 
-### Deploy the gateways and install istio
+### 1.3.4. Deploy the gateways and install istio
 
 ```bash
 kubectl --context ${MGMT} apply -f "argo/gloo/gateways/cross-cluster-gateway.yaml"
@@ -168,5 +172,18 @@ The bellow will deploy
 ```bash
 k apply --context mgmt -f argo/gloo/gateways/applicationset.yaml -n argocd
 ```
+
+### 1.3.5. Deploy the bookinfo app
+We have deployed Gloo Platform in the gloo-mesh project. We will now create a bookinfo project in Argo. 
+In practice this will represent an application tream, which will manage the bookinfo app. 
+To create the bookinfo project in argo run the following:
+
+```bash
+k apply -n argocd -f argo/bookinfo/bookinfo-project.yaml --context ${MGMT}
+```
+
+Now that we have the project created let's create the 
+
+
 
 
