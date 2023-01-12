@@ -1,9 +1,9 @@
 terraform {
   cloud {
-    organization = ""
+    organization = "jonaapelbaum"
 
     workspaces {
-      name = ""
+      name = "argo-cd-demo"
     }
   }
   required_providers {

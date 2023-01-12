@@ -39,7 +39,9 @@ generate-kubeconfig:
 add-argo-cluster:
 	argocd cluster add  cluster1 
 validate-tf:
-	terraform init -upgrade
-	terraform validate
+	terraform -chdir=terraform/ init -upgrade
+	terraform -chdir=terraform/ validate
+apply-tf:
+	terraform -chdir=terraform/ apply -auto-approve
 	
 	

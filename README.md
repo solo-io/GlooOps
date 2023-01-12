@@ -1,21 +1,29 @@
-# gloo-ops
+# 1. gloo-ops
 Manage Gloo Platform the GitOps way
 
-## Prerequisites
+
+
+## 1.1. Prerequisites
 
 prerequisites: 
 - argocd cli
 - terraform cli
 
+## 1.2. Gloo on EKS
 
-## Gloo on EKS
+To creat the eks cluster with terraform run
+```bash
+terraform apply /terraform
+```
 
-1. Run terraform apply
-2. run 
+Let's get the kubeconfig for the cluster
+
 ```bash
 make generate-kubeconfig
 ```
-4. Run the following
+
+Store the following environment veriable to store the context names:
+
 ```bash
 export MGMT=mgmt
 export CLUSTER1=cluster1
@@ -23,7 +31,10 @@ export CLUSTER2=cluster2
 export license="your license key"
 ```
 
-1. Install argo and registere k8s cluster
+## 1.3. Install Gloo
+
+### Install Argo and register the k8s clusters
+
 ```bash
 make install-argo-full
 ```
@@ -55,7 +66,7 @@ argocd cluster add ${CLUSTER1} -y --name ${CLUSTER1}
 argocd cluster add ${CLUSTER2} -y --name ${CLUSTER2}
 ```
 
-2. Install gloo mesh
+1. Install gloo mesh
 
 First create the gloo-mesh project on the management cluster.
 We will first make sure to use right license key
