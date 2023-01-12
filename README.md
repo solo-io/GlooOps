@@ -112,18 +112,15 @@ git push origin main
 k apply --context ${MGMT} -f "argo/gloo/agent-config/agentconfig-app.yaml"
 ```
 
-9.  
+9.   We will now deploy 
 ```bash
 kubectl --context ${MGMT} apply -f "argo/gloo/gateways/cross-cluster-gateway.yaml"
 ```
-10.
+10. Create the gateways on the workload clusters and setup the istio lifecycle manager to manage the istio installation
+    We will deploy an argo appset
+
 ```bash
-kubectl --context ${CLUSTER1} create ns istio-gateways
-kubectl --context ${CLUSTER1} apply -f "argo/gloo/gateways/cluster1"
-kubectl --context ${CLUSTER2} create ns istio-gateways
-kubectl --context ${CLUSTER2} apply -f "argo/gloo/gateways/cluster2"
+k apply --context mgmt -f argo/gloo/gateways/applicationset.yaml -n argocd
 ```
-12.
-```bash
-kubectl --context ${MGMT} apply -f "argo/gloo/istio-lifecycle"
-```
+
+
