@@ -1,6 +1,14 @@
 # 1. gloo-ops
 Manage Gloo Platform the GitOps way
 
+- [1. gloo-ops](#1-gloo-ops)
+  - [1.1. Prerequisites](#11-prerequisites)
+  - [1.2. Gloo on EKS](#12-gloo-on-eks)
+  - [1.3. Install Gloo](#13-install-gloo)
+    - [Install Argo and register the k8s clusters into argo](#install-argo-and-register-the-k8s-clusters-into-argo)
+    - [Clone/branch/fork the GlooOps github repo](#clonebranchfork-the-glooops-github-repo)
+    - [Install gloo mesh mgmt plane and register workload clusters](#install-gloo-mesh-mgmt-plane-and-register-workload-clusters)
+    - [Deploy the gateways and install istio](#deploy-the-gateways-and-install-istio)
 
 
 ## 1.1. Prerequisites
