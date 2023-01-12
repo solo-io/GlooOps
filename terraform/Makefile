@@ -19,7 +19,7 @@ stop-eks:
 	aws eks update-nodegroup-config --cluster-name gloo-ops-mgmt --nodegroup-name mgmt-ng1 --scaling-config  minSize=0,desiredSize=0 --region eu-west-3 --no-cli-pager
 start-eks:
 	
-	aws eks update-nodegroup-config --cluster-name gloo-ops-cluster1  --nodegroup-name cluster1-ng --scaling-config  minSize=5,desiredSize=5 --region eu-west-3 --no-cli-pager
+	aws eks update-nodegroup-config --cluster-name gloo-ops-cluster1  --nodegroup-name cluster1-ng --scaling-config  minSize=1,desiredSize=1 --region eu-west-3 --no-cli-pager
 	aws eks update-nodegroup-config --cluster-name gloo-ops-cluster2  --nodegroup-name cluster2-ng --scaling-config  minSize=1,desiredSize=1 --region eu-west-3 --no-cli-pager
 	aws eks update-nodegroup-config --cluster-name gloo-ops-mgmt --nodegroup-name mgmt-ng1 --scaling-config  minSize=1,desiredSize=1 --region eu-west-3 --no-cli-pager
 install-argo:
@@ -30,7 +30,7 @@ install-argo-rollouts: install-argo
 	kubectl create namespace argo-rollouts --context mgmt
 	kubectl apply -n argo-rollouts -f https://github.com/argoproj/argo-rollouts/releases/latest/download/install.yaml --context mgmt
 install-argo-full: install-argo-rollouts
-	kubectl -n argocd patch secret argocd-secret -p '{"stringData": {"admin.password": "$2a$10$ldvEUwliowstaKXsWbK5b.mvN79pN8yFqQzq1Vq50fIEnzHGhljCa","admin.passwordMtime": "'$(date +%FT%T%Z)'"}}'
+	kubectl -n argocd patch secret argocd-secret -p '{"stringData": {"admin.password": "$2a$10$ldvEUwliowstaKXsWbK5b.mvN79pN8yFqQzq1Vq50fIEnzHGhljCa","admin.passwordMtime": "'$(date +%FT%T%Z)'"}}' --context mgmt
 generate-kubeconfig:
 	aws eks update-kubeconfig --region eu-west-3 --name gloo-ops-cluster2 --alias cluster2  
 	aws eks update-kubeconfig --region eu-west-3 --name gloo-ops-cluster1 --alias cluster1  
