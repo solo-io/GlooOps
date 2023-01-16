@@ -14,7 +14,7 @@ spec:
     name: 'cluster1'
     namespace: gloo-mesh
   sources:
-    - repoURL:  https://github.com/lamadome/GlooOps2
+    - repoURL:  <repo-url>
       targetRevision: HEAD
       ref: myRepo
     - repoURL: 'https://storage.googleapis.com/gloo-mesh-enterprise/gloo-mesh-agent'

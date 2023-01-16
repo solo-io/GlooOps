@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: gloo-cluster2
+  name: gloo-cluster1
   namespace: argocd
 spec:
   ignoreDifferences:
@@ -14,14 +14,14 @@ spec:
     name: 'cluster1'
     namespace: gloo-mesh
   sources:
-    - repoURL:  https://github.com/lamadome/GlooOps2
+    - repoURL:  <repo-url>
       targetRevision: HEAD
       ref: myRepo
     - repoURL: 'https://storage.googleapis.com/gloo-mesh-enterprise/gloo-mesh-agent'
       targetRevision: 2.1.2
       chart: gloo-mesh-agent
       valueFiles:
-          - $myRepo/argo/gloo/gloo-mesh-agent/helm/values-cluster2.yaml
+          - $myRepo/argo/gloo/gloo-mesh-agent/helm/values-cluster1.yaml
   project: gloo-mesh
   syncPolicy:
     syncOptions:
