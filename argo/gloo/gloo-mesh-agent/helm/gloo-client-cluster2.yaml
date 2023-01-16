@@ -11,7 +11,7 @@ spec:
     jsonPointers:
     - /metadata/labels
   destination:
-    name: 'cluster1'
+    name: 'cluster2'
     namespace: gloo-mesh
   sources:
     - repoURL:  https://github.com/lamadome/GlooOps2
