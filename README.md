@@ -9,6 +9,7 @@
     - [1.3.3. Install gloo mesh mgmt plane and register workload clusters](#133-install-gloo-mesh-mgmt-plane-and-register-workload-clusters)
     - [1.3.4. Deploy the gateways and install istio](#134-deploy-the-gateways-and-install-istio)
     - [1.3.5. Deploy the bookinfo app](#135-deploy-the-bookinfo-app)
+    - [1.3.6. Deploy the gloo mesh networking](#136-deploy-the-gloo-mesh-networking)
 
 # 1. gloo-ops
 Manage Gloo Platform the GitOps way
@@ -163,11 +164,10 @@ k apply --context ${MGMT} -f "argo/gloo/agent-config/agentconfig-app.yaml"
 
 ### 1.3.4. Deploy the gateways and install istio
 
-```bash
-kubectl --context ${MGMT} apply -f "argo/gloo/gateways/cross-cluster-gateway.yaml"
-```
 Create the gateways on the workload clusters and setup the istio lifecycle manager to manage the istio installation on the workload clusters:
 The bellow will deploy 
+
+
 
 ```bash
 k apply --context mgmt -f argo/gloo/gateways/applicationset.yaml -n argocd
@@ -182,7 +182,21 @@ To create the bookinfo project in argo run the following:
 k apply -n argocd -f argo/bookinfo/bookinfo-project.yaml --context ${MGMT}
 ```
 
-Now that we have the project created let's create the 
+Now that we have the project created let's create the argo application set to deploy the bookinfo demo app on workload clusters 1 and 2:
+```bash
+k apply --context ${MGMT} -f argo/bookinfo/applicationset.yaml -n argocd
+```
+
+Check the status of the application set:
+```bash
+kubectl --context ${CLUSTER1} -n bookinfo-frontends get pods && kubectl --context ${CLUSTER1} -n bookinfo-backends get pods && kubectl --context ${CLUSTER2} -n bookinfo-frontends get pods && kubectl --context ${CLUSTER2} -n bookinfo-backends get pods
+```
+
+### 1.3.6. Deploy the gloo mesh networking
+
+```bash
+
+
 
 
 
