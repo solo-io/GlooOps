@@ -33,15 +33,15 @@ spec:
     name: 'mgmt'
     namespace: gloo-mesh
   sources:
-    - repoURL:  https://github.com/solo-io/GlooOps
-      targetRevision: master
+    - repoURL:  <repo-url>
+      targetRevision: HEAD
       ref: myRepo
     - repoURL: 'https://storage.googleapis.com/gloo-mesh-enterprise/gloo-mesh-enterprise'
       targetRevision: 2.1.2
       chart: gloo-mesh-enterprise
       helm:
-        valuesFiles:
-          - $myRepo/argo/gloo/mgmt-server/helm/values.yamls
+        valueFiles:
+          - $myRepo/argo/gloo/mgmt-server/helm/values.yaml
   project: gloo-mesh
   syncPolicy:
     syncOptions:
