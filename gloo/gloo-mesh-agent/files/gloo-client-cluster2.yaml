@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: gloo-cluster1
+  name: gloo-cluster2
   namespace: argocd
 spec:
   ignoreDifferences:
@@ -11,22 +11,17 @@ spec:
     jsonPointers:
     - /metadata/labels
   destination:
-    name: 'cluster1'
+    name: 'cluster2'
     namespace: gloo-mesh
-  source:
-    path: ''
-    repoURL: 'https://storage.googleapis.com/gloo-mesh-enterprise/gloo-mesh-agent'
-    targetRevision: 2.1.2
-    chart: gloo-mesh-agent
-    helm:
-      parameters:
-        - name: relay.serverAddress
-          value: >-
-            localhost:9900
-        - name: relay.authority
-          value: gloo-mesh-mgmt-server.gloo-mesh
-        - name: cluster
-          value: cluster1
+  sources:
+    - repoURL:  <repo-url>
+      targetRevision: HEAD
+      ref: myRepo
+    - repoURL: 'https://storage.googleapis.com/gloo-mesh-enterprise/gloo-mesh-agent'
+      targetRevision: 2.1.2
+      chart: gloo-mesh-agent
+      valueFiles:
+          - $myRepo/argo/gloo/gloo-mesh-agent/helm/values-cluster2.yaml
   project: gloo-mesh
   syncPolicy:
     syncOptions:

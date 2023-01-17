@@ -8,7 +8,7 @@ spec:
     name: 'mgmt'
     namespace: ''
   source:
-    path: argo/gloo/agent-config/helm
-    repoURL: 'https://github.com/solo-io/GlooOps'
+    path: argo/gloo/gloo-mesh-agent/helm
+    repoURL: '<repo-url>'
     targetRevision: HEAD
   project: gloo-mesh
