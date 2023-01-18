@@ -20,8 +20,9 @@ spec:
     - repoURL: 'https://storage.googleapis.com/gloo-mesh-enterprise/gloo-mesh-agent'
       targetRevision: 2.1.2
       chart: gloo-mesh-agent
-      valueFiles:
-          - $myRepo/argo/gloo/gloo-mesh-agent/helm/values-cluster2.yaml
+      helm:
+        valueFiles:
+            - $myRepo/gloo/gloo-mesh-agent/files/values-cluster2.yaml
   project: gloo-mesh
   syncPolicy:
     syncOptions:
