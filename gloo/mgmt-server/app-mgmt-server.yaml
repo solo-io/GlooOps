@@ -41,7 +41,7 @@ spec:
       chart: gloo-mesh-enterprise
       helm:
         valueFiles:
-          - $myRepo/argo/gloo/mgmt-server/helm/values.yaml
+          - $myRepo/gloo/mgmt-server/values.yaml
   project: gloo-mesh
   syncPolicy:
     syncOptions:
