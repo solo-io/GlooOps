@@ -6,17 +6,17 @@ metadata:
 spec:
   generators:
   - git:
-      repoURL: https://github.com/solo-io/GlooOps
+      repoURL: <repo-url>
       revision: HEAD
       directories:
-      - path: argo/gloo/gateways/*
+      - path: gloo/istio-lm/*
   template:
     metadata:
       name: 'gateway-{{path.basename}}'
     spec:
       project: gloo-mesh
       source:
-        repoURL: https://github.com/solo-io/GlooOps
+        repoURL: <repo-url>
         targetRevision: HEAD
         path: '{{path}}'
       destination:
