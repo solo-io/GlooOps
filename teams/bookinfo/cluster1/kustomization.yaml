@@ -6,5 +6,3 @@ kind: Kustomization
 resources:
 - bookinfo-cluster1.yaml
 - httpbin.yaml
-patchesStrategicMerge:
-- ns-patch.yaml
