@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: gloo-gateways
+  namespace: argocd
+spec:
+  generators:
+  - git:
+      repoURL: <repo-url>
+      revision: HEAD
+      directories:
+      - path: gloo/istio-lm/*
+  template:
+    metadata:
+      name: 'gateway-{{path.basename}}'
+    spec:
+      project: gloo-mesh
+      source:
+        repoURL: <repo-url>
+        targetRevision: HEAD
+        path: '{{path}}'
+      destination:
+        name: '{{path.basename}}'
