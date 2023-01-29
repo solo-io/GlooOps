@@ -17,3 +17,6 @@ spec:
         path: 'teams/platform/istio/{{name}}'
       destination:
         name: '{{name}}'
+      automated:
+        prune: true
+        selfHeal: true
