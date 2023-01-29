@@ -22,12 +22,12 @@ spec:
       chart: gloo-mesh-agent
       helm:
         valueFiles:
-            - $myRepo/gloo/gloo-mesh-agent/files/values-cluster2.yaml
+            - $myRepo/teams/platform/gloo-mesh-agent/files/values-cluster2.yaml
   project: gloo-mesh
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
       - RespectIgnoreDifferences=true
     automated:
-      prune: false
+      prune: true
       selfHeal: false
