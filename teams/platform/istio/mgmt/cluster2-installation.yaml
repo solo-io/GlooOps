@@ -8,11 +8,11 @@ spec:
     - clusters:
       - name: cluster2
         defaultRevision: true
-      revision: 1-16
+      revision: 1-15
       istioOperatorSpec:
         profile: minimal
         hub: docker.io/istio
-        tag: 1.16.0
+        tag: 1.15.3
         namespace: istio-system
         values:
           global:
@@ -50,11 +50,11 @@ spec:
     - clusters:
       - name: cluster2
         activeGateway: false
-      gatewayRevision: 1-16
+      gatewayRevision: 1-15
       istioOperatorSpec:
         profile: empty
         hub: docker.io/istio
-        tag: 1.16.0
+        tag: 1.15.3
         values:
           gateways:
             istio-ingressgateway:
@@ -77,11 +77,11 @@ spec:
     - clusters:
       - name: cluster2
         activeGateway: false
-      gatewayRevision: 1-16
+      gatewayRevision: 1-15
       istioOperatorSpec:
         profile: empty
         hub: docker.io/istio
-        tag: 1.16.0
+        tag: 1.15.3
         values:
           gateways:
             istio-ingressgateway:

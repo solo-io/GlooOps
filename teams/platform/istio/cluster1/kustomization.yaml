@@ -4,6 +4,6 @@ resources:
 - ../base/istio-gateways-ns.yaml
 - ../base/eastwest-gateway.yaml
 - ../base/ingress-gateway.yaml
-patches:
-
+patchesStrategicMerge:
+- east-west-patch.yaml
 

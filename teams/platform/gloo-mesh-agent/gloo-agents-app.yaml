@@ -3,12 +3,18 @@ kind: Application
 metadata:
   name: gloo-agents
   namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     name: 'mgmt'
     namespace: ''
   source:
-    path: gloo/gloo-mesh-agent/files
+    path: teams/platform/gloo-mesh-agent
     repoURL: '<repo-url>'
     targetRevision: HEAD
   project: gloo-mesh
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
