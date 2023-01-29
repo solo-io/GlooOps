@@ -5,19 +5,15 @@ metadata:
   namespace: argocd
 spec:
   generators:
-  - git:
-      repoURL: <repo-url>
-      revision: HEAD
-      directories:
-      - path: gloo/istio-lm/*
+  - clusters: {}  
   template:
     metadata:
-      name: 'gateway-{{path.basename}}'
+      name: 'istio-lifecycle-{{name}}'
     spec:
       project: gloo-mesh
       source:
         repoURL: <repo-url>
         targetRevision: HEAD
-        path: '{{path}}'
+        path: 'teams/platform/istio/{{name}}'
       destination:
-        name: '{{path.basename}}'
+        name: '{{name}}'

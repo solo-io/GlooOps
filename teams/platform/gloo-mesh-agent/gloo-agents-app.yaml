@@ -10,7 +10,7 @@ spec:
     name: 'mgmt'
     namespace: ''
   source:
-    path: teams/platform/gloo-mesh-agent
+    path: teams/platform/gloo-mesh-agent/files
     repoURL: '<repo-url>'
     targetRevision: HEAD
   project: gloo-mesh
