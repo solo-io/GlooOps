@@ -19,4 +19,4 @@ spec:
         name: '{{name}}'
       automated:
         prune: true
-        selfHeal: true
+        selfHeal: false

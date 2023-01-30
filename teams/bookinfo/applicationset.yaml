@@ -5,19 +5,16 @@ metadata:
   namespace: argocd
 spec:
   generators:
-  - git:
-      repoURL: https://github.com/solo-io/GlooOps
-      revision: HEAD
-      directories:
-      - path: argo/bookinfo/*
+  generators:
+  - clusters: {}
   template:
     metadata:
-      name: 'bookinfo-{{path.basename}}'
+      name: 'bookinfo-{{name}}'
     spec:
       project: gloo-mesh
       source:
-        repoURL: https://github.com/solo-io/GlooOps
+        repoURL: <repourl>
         targetRevision: HEAD
-        path: '{{path}}'
+        path: 'teams/bookinfo/{{name}}'
       destination:
-        name: '{{path.basename}}'
+        name: '{{name}}'
